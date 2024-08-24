@@ -1,0 +1,447 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Simple JS Player</title>
+  <link rel="stylesheet" href="sjp.css">
+  <!-- GPLAYER -->
+  <script src="sjp.js" defer></script>
+  
+</head>
+
+<body>
+  <div id="row" style="display: flex; gap: 3em;">
+    <div id="colum1">
+
+      <video 
+      class="SJP_Video" 
+      poster="poster.jpg" 
+      src="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4" 
+      preload="auto" 
+
+      disableRemotePlayback
+      
+      data-videoID="bucket1"
+      data-title="Test 001"
+      data-layout="default"
+      data-fullScreenDoubleClick="1"
+      data-previewDir="previewImgs/"
+      data-previewFileName="preview"
+      data-previewFileFormat="jpg"
+      data-borderRadius="10px"
+      data-timelineHeight="7px"
+      data-timelineHeightHover="same"
+      data-tickDisplay="yes"
+      data-tickWidth="4px"
+      data-tickTopPos="-2px"
+      data-tickColor="same"
+      data-timelinePadding="0px 0px 0px 0px"
+      data-controlsPadding="0px 0px 0px 0px"
+      data-timelineCursor="col-resize"
+      data-startPlayBtn="1"
+      data-startHideTitle="1"
+      data-startHideControls="1"
+      data-disableLayoutFade="0"
+      data-layoutFadeTime="2000"
+      data-layoutInstantFadeMouseLeave="1"
+      data-volumeLevel="100"
+      data-volumeStyle="h"
+      data-width="560px"
+      data-height="315px"
+      data-maxWidth="560px"
+      data-maxHeight="315px"
+      data-displayControls="1"
+      data-displayTimeline="1"
+      data-displayPreview="1"
+      data-displayVolume="1"
+      data-displayDuration="1"
+      data-disableRightClick="0"
+      data-rightClickMenu="sjp"
+      data-forwardBtn="1"
+      data-forwardSec="50"
+      data-backBtn="1"
+      data-backSec="10"
+      data-speedMenu="1"
+      data-miniPlayerBtn="1"
+      data-fullScreenBtn="1"
+      data-font="default"
+      data-timelineColor="default"
+      data-timelineBackgroundColor="default"
+      data-buttonsColor="default"
+      data-buttonsHoverColor="default"
+      data-menuTextColor="default"
+      data-checkColor="default"
+      data-titleColor="default"
+      data-timerColor="default"
+      data-controlsBackgroundColor="rgba(100, 100, 100, 0.5)"
+      data-controlsBackgroundColorGradient="linear-gradient(to top, rgba(0,0,0,.50), transparent)"
+      ></video>
+
+      <br>
+
+      <video 
+      class="SJP_Video" 
+      poster="poster.jpg" 
+      src="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4" 
+      preload="auto" 
+
+      disableRemotePlayback
+      
+      data-videoID="bucket2"
+      data-title="Test 002"
+      data-layout="default"
+      data-fullScreenDoubleClick="1"
+      data-previewDir="previewImgs/"
+      data-previewFileName="preview"
+      data-previewFileFormat="jpg"
+      data-borderRadius="0px"
+      data-timelineHeight="3px"
+      data-timelineHeightHover="7px"
+      data-tickDisplay="yes"
+      data-tickWidth="4px"
+      data-tickTopPos="3px"
+      data-tickColor="same"
+      data-timelinePadding="5px 5px 0px 5px"
+      data-controlsPadding="7px 7px 5px 7px"
+      data-timelineCursor="col-resize"
+      data-hideDefaultControls="1"
+      data-startPlayBtn="1"
+      data-startHideTitle="0"
+      data-startHideControls="0"
+      data-layoutFadeTime="2000"
+      data-layoutInstantFadeMouseLeave="1"
+      data-volumeLevel="100"
+      data-volumeStyle="v"
+      data-width="560px"
+      data-height="315px"
+      data-maxWidth="560px"
+      data-maxHeight="315px"
+      data-displayControls="1"
+      data-displayTimeline="1"
+      data-displayPreview="1"
+      data-displayVolume="1"
+      data-displayDuration="1"
+      data-disableRightClick="0"
+      data-rightClickMenu="sjp"
+      data-forwardBtn="1"
+      data-forwardSec="10"
+      data-backBtn="1"
+      data-backSec="10"
+      data-speedMenu="1"
+      data-miniPlayerBtn="1"
+      data-fullScreenBtn="1"
+      data-font="default"
+      data-timelineColor="red"
+      data-timelineBackgroundColor="default"
+      data-buttonsColor="red"
+      data-buttonsHoverColor="rgb(200,200,200)"
+      data-menuTextColor="default"
+      data-checkColor="red"
+      data-titleColor="red"
+      data-timerColor="red"
+      data-controlsBackgroundColor="default"
+      data-controlsBackgroundColorGradient="default"
+      ></video>
+
+      <br>
+
+      <video 
+      class="SJP_Video" 
+      poster="poster.jpg" 
+      src="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4" 
+      preload="auto" 
+
+      disableRemotePlayback
+      
+      data-videoID="bucket3"
+      data-title="Test 003"
+      data-layout="simple"
+      data-fullScreenDoubleClick="1"
+      data-previewDir="previewImgs/"
+      data-previewFileName="preview"
+      data-previewFileFormat="jpg"
+      data-borderRadius="10px"
+      data-timelineHeight="3px"
+      data-timelineHeightHover="7px"
+      data-tickDisplay="yes"
+      data-tickWidth="4px"
+      data-tickTopPos="3px"
+      data-tickColor="same"
+      data-timelinePadding="5px 5px 0px 5px"
+      data-controlsPadding="7px 7px 5px 7px"
+      data-timelineCursor="default"
+      data-hideDefaultControls="1"
+      data-startPlayBtn="1"
+      data-startHideTitle="0"
+      data-startHideControls="0"
+      data-disableLayoutFade="1"
+      data-layoutFadeTime="2000"
+      data-layoutInstantFadeMouseLeave="1"
+      data-volumeLevel="100"
+      data-volumeStyle="v"
+      data-width="560px"
+      data-height="315px"
+      data-maxWidth="560px"
+      data-maxHeight="315px"
+      data-displayControls="1"
+      data-displayTimeline="1"
+      data-displayPreview="1"
+      data-displayVolume="1"
+      data-displayDuration="1"
+      data-disableRightClick="0"
+      data-rightClickMenu="default"
+      data-forwardBtn="1"
+      data-forwardSec="10"
+      data-backBtn="1"
+      data-backSec="10"
+      data-speedMenu="1"
+      data-miniPlayerBtn="1"
+      data-fullScreenBtn="1"
+      data-font="default"
+      data-timelineColor="default"
+      data-timelineBackgroundColor="default"
+      data-buttonsColor="default"
+      data-buttonsHoverColor="rgb(200,200,200)"
+      data-menuTextColor="default"
+      data-checkColor="default"
+      data-titleColor="default"
+      data-timerColor="default"
+      data-controlsBackgroundColor="default"
+      data-controlsBackgroundColorGradient="default"
+      ></video>
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div id="colum2">
+        <video 
+        class="SJP_Video" 
+        poster="poster.jpg" 
+        src="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4" 
+        preload="auto" 
+
+        disableRemotePlayback
+
+        data-videoID="bucket4"
+        data-title="Test 004"
+        data-layout="default"
+        data-fullScreenDoubleClick="1"
+        data-previewDir="previewImgs/"
+        data-previewFileName="preview"
+        data-previewFileFormat="jpg"
+        data-borderRadius="0px"
+        data-timelineHeight="7px"
+        data-timelineHeightHover="7px"
+        data-tickDisplay="yes"
+        data-tickWidth="4px"
+        data-tickTopPos="-2px"
+        data-tickColor="same"
+        data-startPlayBtn="1"
+        data-startHideTitle="0"
+        data-startHideControls="0"
+        data-disableLayoutFade="1"
+        data-layoutFadeTime="2000"
+        data-layoutInstantFadeMouseLeave="1"
+        data-volumeLevel="100"
+        data-volumeStyle="v"
+        data-width="560px"
+        data-height="315px"
+        data-maxWidth="560px"
+        data-maxHeight="315px"
+        data-displayControls="1"
+        data-displayTimeline="1"
+        data-displayPreview="0"
+        data-displayVolume="1"
+        data-displayDuration="1"
+        data-disableRightClick="0"
+        data-rightClickMenu="sjp"
+        data-forwardBtn="0"
+        data-forwardSec="50"
+        data-backBtn="0"
+        data-backSec="10"
+        data-speedMenu="1"
+        data-miniPlayerBtn="1"
+        data-fullScreenBtn="1"
+        data-font="default"
+        data-timelineColor="red"
+        data-timelineBackgroundColor="default"
+        data-buttonsColor="default"
+        data-buttonsHoverColor="default"
+        data-menuTextColor="default"
+        data-checkColor="default"
+        data-titleColor="default"
+        data-timerColor="default"
+
+        ></video>
+
+        <br>
+
+        <video 
+        class="SJP_Video" 
+        poster="poster.jpg" 
+        src="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4" 
+        preload="auto" 
+  
+        disableRemotePlayback
+        
+        data-videoID="bucket5"
+        data-title="Test 005"
+        data-layout="default"
+        data-fullScreenDoubleClick="1"
+        data-previewDir="previewImgs/"
+        data-previewFileName="preview"
+        data-previewFileFormat="jpg"
+        data-borderRadius="0px"
+        data-timelineHeight="3px"
+        data-timelineHeightHover="7px"
+        data-tickDisplay="yes"
+        data-tickWidth="4px"
+        data-tickTopPos="3px"
+        data-tickColor="same"
+        data-timelinePadding="5px 5px 0px 5px"
+        data-controlsPadding="7px 7px 5px 7px"
+        data-timelineCursor="col-resize"
+        data-hideDefaultControls="1"
+        data-startPlayBtn="1"
+        data-startHideTitle="0"
+        data-startHideControls="1"
+        data-disableLayoutFade="1"
+        data-layoutFadeTime="2000"
+        data-layoutInstantFadeMouseLeave="1"
+        data-volumeLevel="100"
+        data-volumeStyle="v"
+        data-width="560px"
+        data-height="315px"
+        data-maxWidth="560px"
+        data-maxHeight="315px"
+        data-displayControls="1"
+        data-displayTimeline="1"
+        data-displayPreview="1"
+        data-displayVolume="1"
+        data-displayDuration="1"
+        data-disableRightClick="0"
+        data-rightClickMenu="default"
+        data-forwardBtn="1"
+        data-forwardSec="10"
+        data-backBtn="1"
+        data-backSec="10"
+        data-speedMenu="1"
+        data-miniPlayerBtn="1"
+        data-fullScreenBtn="1"
+        data-font="default"
+        data-timelineColor="default"
+        data-timelineBackgroundColor="default"
+        data-buttonsColor="red"
+        data-buttonsHoverColor="rgb(200,200,200)"
+        data-menuTextColor="default"
+        data-checkColor="default"
+        data-titleColor="default"
+        data-timerColor="default"
+        data-controlsBackgroundColor="default"
+        data-controlsBackgroundColorGradient="default"
+        ></video>
+
+        <br>
+
+        <video 
+        class="SJP_Video" 
+        poster="poster.jpg" 
+        src="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4" 
+        preload="auto" 
+  
+        disableRemotePlayback
+        
+        data-videoID="bucket6"
+        data-title="Test 006"
+        data-layout="mini"
+        data-fullScreenDoubleClick="1"
+        data-previewDir="previewImgs/"
+        data-previewFileName="preview"
+        data-previewFileFormat="jpg"
+        data-borderRadius="10px"
+        data-timelineHeight="3px"
+        data-timelineHeightHover="7px"
+        data-tickDisplay="yes"
+        data-tickWidth="4px"
+        data-tickTopPos="3px"
+        data-tickColor="same"
+        data-timelinePadding="5px 5px 0px 5px"
+        data-timelineCursor="default"
+        data-controlsPadding="7px 7px 5px 7px"
+        data-hideDefaultControls="1"
+        data-startPlayBtn="1"
+        data-startHideTitle="0"
+        data-startHideControls="0"
+        data-disableLayoutFade="1"
+        data-layoutFadeTime="2000"
+        data-layoutInstantFadeMouseLeave="1"
+        data-volumeLevel="100"
+        data-volumeStyle="v"
+        data-width="560px"
+        data-height="315px"
+        data-maxWidth="560px"
+        data-maxHeight="315px"
+        data-displayControls="1"
+        data-displayTimeline="1"
+        data-displayPreview="1"
+        data-displayVolume="1"
+        data-displayDuration="1"
+        data-disableRightClick="0"
+        data-rightClickMenu="default"
+        data-forwardBtn="1"
+        data-forwardSec="10"
+        data-backBtn="1"
+        data-backSec="10"
+        data-speedMenu="1"
+        data-miniPlayerBtn="1"
+        data-fullScreenBtn="1"
+        data-font="default"
+        data-timelineColor="default"
+        data-timelineBackgroundColor="default"
+        data-buttonsColor="default"
+        data-buttonsHoverColor="rgb(200,200,200)"
+        data-menuTextColor="default"
+        data-checkColor="default"
+        data-titleColor="default"
+        data-timerColor="default"
+        data-controlsBackgroundColor="default"
+        data-controlsBackgroundColorGradient="default"
+        data-fullScreenDoubleClick="1"
+        ></video>
+    </div>
+
+  </div>
+
+</body>
+</html>
