@@ -1,2 +1,2 @@
-### Simples JavaScript Video Player
-# by: Hudson Pear (pyrus)
+# Simples JavaScript Video Player
+### by: Hudson Pear (pyrus)
