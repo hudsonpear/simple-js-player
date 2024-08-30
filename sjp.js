@@ -1,3 +1,9 @@
+/*!
+Simple JavaScript Video Player v1.0.1
+Made by: Hudson Pear (pyrus)
+2024
+*/
+
 document.addEventListener('DOMContentLoaded', function() {
     const videos = document.querySelectorAll('video.SJP_Video');
 
