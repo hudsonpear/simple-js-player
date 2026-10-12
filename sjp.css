@@ -1,22 +1,13 @@
-/*!
-* Simple JavaScript Video Player 
-* v1.0.2
-* Made by: Hudson Pear (pyrus)
-* 2025
-*/
+/* Simple JS Player. Everything is scoped to SJP_ classes - no rules for
+   body, bare elements or generic class names, so nothing leaks onto the
+   host page. */
 
 .SJP_Video {
     width: 100%;
 }
-.SJP_link {
-    text-decoration: underline;
-    color: rgb(78, 192, 235);
-}
+
 .SJP_hidden {
     display: none!important;
-}
-.SJP_show {
-    display: block!important;
 }
 .SJP_configMenuDiv {
     position: relative;
@@ -26,6 +17,12 @@
     position: absolute;
     left: 10px;
     top: 10px;
+    pointer-events: none; /* clicks and taps go through to the video */
+    transition: opacity .25s ease;
+}
+
+.SJP_videoContainer svg {
+    cursor: pointer;
 }
 
 .SJP_playBtnM {
@@ -36,16 +33,11 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    /* background-color: rgba(202, 202, 202, 0.452); */
     cursor: pointer;
     z-index: 100;
     transition: transform 0.3s ease;
 }
-.SJP_playBtnM:hover, svg {
-    cursor: pointer;
-}
 .SJP_playBtnM:hover {
-    cursor: pointer;
     transform: translate(-50%, -50%) scale(1.1);
     opacity: 1;
 }
@@ -57,6 +49,7 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+    pointer-events: none;
 }
 .SJP_replay {
     position: absolute;
@@ -72,13 +65,11 @@
     display: none;
 }
 .SJP_replay:hover {
-    cursor: pointer;
     transform: translate(-50%, -50%) scale(1.1);
     opacity: .80;
 }
 @keyframes SJP_animaPlay {
-    from{ }
-    to {  
+    to {
         transform: scale(1.5);
     }
 }
@@ -96,39 +87,66 @@
     display: none;
 }
 
+/* "+10s" / "-10s" shown on double taps (sjp.js animates the opacity). */
+.SJP_skip {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    padding: 6px 14px;
+    border-radius: 999px;
+    background-color: rgba(0, 0, 0, .55);
+    color: white;
+    font-size: 15px;
+    font-weight: 600;
+    opacity: 0;
+    pointer-events: none;
+    z-index: 100;
+}
+.SJP_skipBack {
+    left: 12%;
+}
+.SJP_skipForward {
+    right: 12%;
+}
+
 .SJP_videoContainer {
+    --sjp-preview-h: 80px;    /* hover thumbnail height */
+    --sjp-preview-ar: 1.7778; /* thumbnail aspect ratio - sjp.js sets the video's */
     position: relative;
     display: flex;
     justify-content: center;
+    min-height: 0;              /* the aspect ratio sets the height, not the video's own size */
     user-select: none;
+    touch-action: manipulation; /* no double-tap zoom: double taps skip instead */
     background-color: black;
 }
 
-.SJP_videoContainer .SJP_fullScreen{
-    max-width: initial;
-    width: 100%;
-    max-height: 100vh;
-}
-
+/* While scrubbing - with a mouse, a finger or a pen. */
 .SJP_videoContainer.scrubbing .SJP_previewImg,
-.SJP_timelineContainer:hover .SJP_previewImg,
-.SJP_timelineContainer:hover .SJP_timeText {
+.SJP_videoContainer.scrubbing .SJP_timeText {
     display: block;
 }
-
-.SJP_videoContainer.scrubbing .SJP_timeline::before,
-.SJP_timelineContainer:hover .SJP_timeline::before {
-    display: block;
-}
-
 .SJP_videoContainer.scrubbing .SJP_thumbIndicator,
-.SJP_timelineContainer:hover .SJP_thumbIndicator {
+.SJP_timelineContainer:focus-visible .SJP_thumbIndicator {
     --scale: 1;
 }
-
-.SJP_videoContainer.scrubbing .SJP_timeline,
-.SJP_timelineContainer:hover .SJP_timeline {
+.SJP_videoContainer.scrubbing .SJP_timeline {
     height: 100%!important;
+}
+
+/* Hover feedback only where there's a real hover, not the sticky one a
+   tap leaves behind on phones. */
+@media (any-hover: hover) {
+    .SJP_timelineContainer:hover .SJP_previewImg,
+    .SJP_timelineContainer:hover .SJP_timeText {
+        display: block;
+    }
+    .SJP_timelineContainer:hover .SJP_thumbIndicator {
+        --scale: 1;
+    }
+    .SJP_timelineContainer:hover .SJP_timeline {
+        height: 100%!important;
+    }
 }
 
 .SJP_videoContainer.SJP_fullScreen .SJP_fullScreenOpen{
@@ -138,34 +156,16 @@
     display: none;
 }
 
-.SJP_videoContainer[data-volume-level="high"] .SJP_volumeHighIcon {
-    display: block;
-}
-.SJP_videoContainer[data-volume-level="high"] .SJP_volumeLowIcon {
+/* Only the icon matching data-volume-level (set by sjp.js) is shown. */
+.SJP_volumeHighIcon,
+.SJP_volumeLowIcon,
+.SJP_volumeMutedIcon {
     display: none;
 }
-.SJP_videoContainer[data-volume-level="high"] .SJP_volumeMutedIcon {
-    display: none;
-}
-
-.SJP_videoContainer[data-volume-level="low"] .SJP_volumeLowIcon {
-    display: block;
-}
-.SJP_videoContainer[data-volume-level="low"] .SJP_volumeHighIcon {
-    display: none;
-}
-.SJP_videoContainer[data-volume-level="low"] .SJP_volumeMutedIcon {
-    display: none;
-}
-
+.SJP_videoContainer[data-volume-level="high"] .SJP_volumeHighIcon,
+.SJP_videoContainer[data-volume-level="low"] .SJP_volumeLowIcon,
 .SJP_videoContainer[data-volume-level="muted"] .SJP_volumeMutedIcon {
     display: block;
-}
-.SJP_videoContainer[data-volume-level="muted"] .SJP_volumeHighIcon {
-    display: none;
-}
-.SJP_videoContainer[data-volume-level="muted"] .SJP_volumeLowIcon {
-    display: none;
 }
 
 .SJP_videoControlsContainer {
@@ -174,6 +174,7 @@
     left: 0;
     right: 0;
     z-index: 100;
+    transition: opacity .25s ease;
 }
 
 .SJP_videoControlsContainer::before {
@@ -210,12 +211,26 @@
     opacity: 1;
 }
 
+/* Narrow players (under 400px, flagged by sjp.js): drop the secondary
+   buttons so the row still fits; double taps and J/L still skip. */
+.SJP_videoContainer.SJP_narrow {
+    --sjp-preview-h: 56px;
+}
+.SJP_narrow .SJP_backBtn,
+.SJP_narrow .SJP_forwardBtn,
+.SJP_narrow .SJP_miniPlayerBtn {
+    display: none;
+}
+.SJP_narrow .SJP_controls {
+    gap: .25rem;
+}
+
 /* VOLUME */
 
 .SJP_rangeV::-webkit-slider-thumb,
 .SJP_rangeH::-webkit-slider-thumb {
     -webkit-appearance: none;
-    appearance: none; 
+    appearance: none;
     height: 13px;
     width: 13px;
     background-color: #fff;
@@ -232,16 +247,10 @@
     border: none;
     transition: .2s ease-in-out;
 }
-.SJP_volumeHighIcon,
-.SJP_volumeLowIcon,
-.SJP_volumeMutedIcon {
-    display: none;
-}
 
 .SJP_volumeContainer {
     position: relative;
     display: flex;
-    /* gap: .5rem; */
     align-items: center;
 }
 
@@ -249,7 +258,7 @@
 
 .SJP_rangeV {
     -webkit-appearance: none;
-    appearance: none; 
+    appearance: none;
     cursor: pointer;
     outline: none;
     border-radius: 15px;
@@ -274,12 +283,10 @@
     left: -35px;
     top: -70px;
     display: none;
-    /* background-color: rgba(100,100,100,.5);
-    border-radius: 100px; */
 }
 
-.SJP_volumeContainer:hover .SJP_volumeDivV, 
-.SJP_volumeSlider:focus-within {
+.SJP_volumeContainer:hover .SJP_volumeDivV,
+.SJP_volumeDivV:focus-within {
     display: block;
 }
 
@@ -287,7 +294,7 @@
 
 .SJP_rangeH {
     -webkit-appearance: none;
-    appearance: none; 
+    appearance: none;
     cursor: pointer;
     outline: none;
     border-radius: 15px;
@@ -297,11 +304,9 @@
     width: 65px;
     transform-origin: left;
     transform: scaleX(0);
-    /* transition: width 200ms ease-in-out, transform 200ms ease-in-out; */
 }
 .SJP_volumeDivH {
     position: relative;
-    /* transform: rotate(270deg); */
     background-color: transparent;
     top: -20px;
     left: -19px;
@@ -319,6 +324,26 @@
     transform: scaleX(1);
 }
 
+/* Keyboard: tabbing onto the speaker opens the slider too, so Tab can
+   reach it. (Own rules - a browser without :has() drops just these.) */
+.SJP_volumeContainer:has(:focus-visible) .SJP_volumeDivV {
+    display: block;
+}
+.SJP_volumeContainer:has(:focus-visible) .SJP_rangeH,
+.SJP_volumeContainer:has(:focus-visible) .SJP_volumeDivH {
+    width: 65px;
+    transform: scaleX(1);
+}
+
+/* Phones and tablets set the volume with their hardware buttons (iOS
+   ignores a page's volume anyway): there the speaker just mutes. */
+@media (any-hover: none) {
+    .SJP_volumeDivV,
+    .SJP_volumeDivH {
+        display: none !important;
+    }
+}
+
 /* ------------------------------- */
 
 .SJP_durationContainer {
@@ -331,9 +356,14 @@
 }
 
 .SJP_timelineContainer {
+    --sjp-hover-half: 30px; /* half the hover label: keeps it inside the bar */
     position: relative;
     display: flex;
     align-items: center;
+    touch-action: none; /* a touch drag on the bar scrubs instead of scrolling */
+}
+.SJP_hasPreview .SJP_timelineContainer {
+    --sjp-hover-half: calc(var(--sjp-preview-h) * var(--sjp-preview-ar) / 2 + 2px);
 }
 
 .SJP_timeline {
@@ -342,9 +372,24 @@
     width: 100%;
 }
 
+/* sjp.js sets `left` to the pointer position; centered on it here. */
 .SJP_tick {
     position: absolute;
     display: none;
+    transform: translateX(-50%);
+    pointer-events: none;
+    background-color: var(--sjp-tick-color, white);
+}
+
+.SJP_timeline::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    right: calc(100% - var(--buffer-position, 0) * 100%);
+    background-color: rgba(255, 255, 255, 0.4);
+    pointer-events: none;
 }
 
 .SJP_timeline::after {
@@ -354,6 +399,7 @@
     top: 0;
     bottom: 0;
     right: calc(100% - var(--progress-position) * 100%);
+    background-color: var(--sjp-timeline-color, white);
 }
 
 .SJP_timeline .SJP_thumbIndicator {
@@ -366,30 +412,33 @@
     border-radius: 50%;
     transition: transform 150ms ease-in-out;
     aspect-ratio: 1 / 1;
-} 
+    background-color: var(--sjp-timeline-color, white);
+}
 
-
-
+/* Hover thumbnail and time: follow the pointer, but stop at the ends of
+   the bar instead of hanging off the player. */
 .SJP_timeline .SJP_previewImg {
     position: absolute;
-    height: 80px;
-    aspect-ratio: 16 / 9;
-    /* top: -41px; */
+    height: var(--sjp-preview-h);
+    aspect-ratio: var(--sjp-preview-ar);
+    object-fit: cover;
     top: -2px;
     transform: translate(-50%, -100%);
-    left: calc(var(--preview-position) * 100%);
+    left: clamp(var(--sjp-hover-half), var(--preview-position) * 100%, 100% - var(--sjp-hover-half));
     border-radius: .25rem;
     border: 2px solid white;
     display: none;
 }
+.SJP_previewSprite {
+    background-color: black;
+    background-repeat: no-repeat;
+}
 .SJP_timeText {
     position: absolute;
     transform: translate(-50%, -100%);
-    left: calc(var(--preview-position) * 100%);
-    border-radius: .25rem;
+    left: clamp(var(--sjp-hover-half), var(--preview-position) * 100%, 100% - var(--sjp-hover-half));
     display: none;
     top: -5px;
-    /* background-color: rgba(100, 100, 100, 0.425); */
     padding: 5px;
     border-radius: 5px;
 }
@@ -425,8 +474,6 @@
     background-color: rgba(100,100,100,.7);
     opacity: 1;
     z-index: 101;
-    top: 0;
-    left: 0;
     display: none;
     padding: 5px;
     left: -40px;
@@ -434,7 +481,7 @@
 }
 .SJP_menuItem:hover{
     background-color: rgba(143, 143, 143, 0.575);
-} 
+}
 .SJP_menuItem {
     display: table-row;
     cursor: pointer;
@@ -461,6 +508,7 @@
     position: relative;
     margin-left: 5px;
     top: 2px;
+    fill: var(--sjp-check-color, white);
 }
 
 /* RIGHTCLICK MENU */
@@ -492,12 +540,7 @@
 }
 .SJP_rightMenuUL li:hover {
     background-color: rgba(100,100,100,0.5);
-}
-.SJP_fsvg {
-    position: relative;
-    fill: white;
-    top: 2px;
-    padding-right: 5px;
+    border-radius: var(--sjp-border-radius, 10px);
 }
 
 /* ABOUT */
@@ -539,10 +582,81 @@
     width: 28px;
     height: 22px;
     border-top-right-radius: 5px;
-    cursor: var(--cursor_glove)!important;
 }
 
 .SJP_closeBtn:hover {
     background-color: rgb(255, 47, 47);
-    cursor: var(--cursor_glove)!important;
+}
+
+/* Keyboard focus ring - mouse clicks don't show it. */
+.SJP_videoContainer :focus-visible {
+    outline: 2px solid var(--sjp-button-hover-color, white);
+    outline-offset: 2px;
+}
+.SJP_menuItem:focus-visible {
+    outline: none;
+    background-color: rgba(143, 143, 143, 0.575);
+}
+
+/* ------------------------------------------------------------ */
+/* Per-instance theming, driven by CSS custom properties set on  */
+/* .SJP_videoContainer (see sjp.js). Defaults match the original */
+/* hardcoded values.                                              */
+/* ------------------------------------------------------------ */
+
+.SJP_buttonWhite {
+    fill: var(--sjp-button-color, white);
+}
+.SJP_strokeWhite {
+    stroke: var(--sjp-button-color, white);
+}
+.SJP_playPause {
+    border-color: transparent transparent transparent var(--sjp-button-color, white) !important;
+}
+.SJP_muteBtn,
+.SJP_miniPlayerBtn,
+.SJP_fullScreenBtn {
+    fill: var(--sjp-button-color, white) !important;
+}
+
+.SJP_buttonWhite:hover {
+    fill: var(--sjp-button-hover-color, white);
+}
+.SJP_strokeWhite:hover {
+    stroke: var(--sjp-button-hover-color, white);
+}
+.SJP_playPause:hover {
+    border-color: transparent transparent transparent var(--sjp-button-hover-color, white) !important;
+}
+.SJP_muteBtn:hover,
+.SJP_miniPlayerBtn:hover,
+.SJP_fullScreenBtn:hover,
+.SJP_volumeHighIcon:hover,
+.SJP_volumeLowIcon:hover,
+.SJP_volumeMutedIcon:hover {
+    fill: var(--sjp-button-hover-color, white) !important;
+}
+
+.SJP_videoContainer,
+.SJP_videoContainer .SJP_Video,
+.SJP_rightMenu,
+.SJP_configDiv {
+    border-radius: var(--sjp-border-radius, 10px);
+}
+.SJP_videoControlsContainer,
+.SJP_videoControlsContainer::before {
+    border-bottom-left-radius: var(--sjp-border-radius, 10px);
+    border-bottom-right-radius: var(--sjp-border-radius, 10px);
+}
+.SJP_menuItem_label {
+    border-bottom-right-radius: var(--sjp-border-radius, 10px) !important;
+    border-top-right-radius: var(--sjp-border-radius, 10px) !important;
+}
+.SJP_menuItem_icon {
+    border-bottom-left-radius: var(--sjp-border-radius, 10px) !important;
+    border-top-left-radius: var(--sjp-border-radius, 10px) !important;
+}
+
+.SJP_videoControlsContainer::before {
+    background: var(--sjp-controls-gradient, linear-gradient(to top, rgba(0,0,0,.50), transparent));
 }
